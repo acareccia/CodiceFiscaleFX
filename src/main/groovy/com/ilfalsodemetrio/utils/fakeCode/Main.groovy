@@ -42,17 +42,15 @@ def swingBuilder = new SwingBuilder()
 
 swingBuilder.edt {
     //lookAndFeel 'nimbus'
-    frame(title:
-            'CF',
-            size: [400, 300],
+    frame(title: 'CF',
+            size: [400, 400],
             show: true,
             locationRelativeTo: null,
             defaultCloseOperation: EXIT_ON_CLOSE) {
 
-        borderLayout(vgap: 5)
+        borderLayout(vgap: 6)
 
-        panel(constraints: BorderLayout.CENTER,
-                border: compoundBorder([emptyBorder(10), titledBorder()])) {
+        panel(constraints: BorderLayout.CENTER, border: compoundBorder([emptyBorder(10), titledBorder()])) {
 
             tableLayout {
                 tr {
@@ -80,13 +78,20 @@ swingBuilder.edt {
                     td { textField id: 'codiceFiscaleField', columns: 20, text: persona.codiceFiscale }
                 }
             }
+            panel(constraints: BorderLayout.SOUTH){
+                scrollPane(constraints: BorderLayout.CENTER){
+                    textArea(id:'omoTextArea', lineWrap:true,wrapStyleWord:true, columns:25, rows:5, editable:false)
+                }
+            }
 
         }
 
         panel(constraints: BorderLayout.SOUTH) {
             button text: 'Genera', actionPerformed: {
-                persona.codiceFiscale = CodiceFiscaleChecker.getAllValidCodiciFiscali(persona)[0]
+                def codici = CodiceFiscaleChecker.getAllValidCodiciFiscali(persona)
+                persona.codiceFiscale = codici[0]
                 codiceFiscaleField.text = persona.codiceFiscale
+                omoTextArea.text = codici
                 println persona
             }
         }

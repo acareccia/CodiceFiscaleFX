@@ -74,7 +74,7 @@
     <dependency>
         <groupId>it.lispa.siss.nar.commons-nar</groupId>
         <artifactId>commons-nar-be</artifactId>
-        <version>LATEST</version>
+        <version>6.0.8</version>
         <exclusions>
             <exclusion>
                 <artifactId>jasperreports</artifactId>
