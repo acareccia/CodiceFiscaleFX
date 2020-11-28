@@ -25,16 +25,17 @@ class AppGroovy {
 
         swingBuilder.edt {
             //lookAndFeel 'nimbus'
-            frame(title: 'CF',
-                    size: [400, 400],
+            frame(title: 'Codice Fiscale',
+                    size: [400, 450],
                     show: true,
+                    resizable: false,
                     locationRelativeTo: null,
                     defaultCloseOperation: EXIT_ON_CLOSE) {
 
                 borderLayout(vgap: 6)
 
-                panel(constraints: BorderLayout.CENTER, border: compoundBorder([emptyBorder(10), titledBorder()])) {
-
+                panel(constraints: BorderLayout.NORTH,
+                        border: compoundBorder([emptyBorder(5), titledBorder('Dati Anagrafici')])) {
                     tableLayout {
                         tr {
                             td { label 'Nome:' }
@@ -56,15 +57,25 @@ class AppGroovy {
                             td { label 'Localita Nascita:' }
                             td { textField id: 'localitaField', columns: 20, text: localita.codiceFiscale }
                         }
+
+                    }
+//                    panel(constraints: BorderLayout.SOUTH) {
+//
+//                    }
+
+                }
+
+                panel(constraints: BorderLayout.CENTER,
+                        border: compoundBorder([emptyBorder(5), titledBorder('Codice Fiscale e omocodi possibili')])) {
+                    tableLayout {
                         tr {
                             td { label 'Codice Fiscale:' }
-                            td { textField id: 'codiceFiscaleField', columns: 20, text: persona.codiceFiscale }
+                            td { textField id: 'codiceFiscaleField',
+                                    columns: 20, editable: false, text: persona.codiceFiscale }
                         }
                     }
-                    panel(constraints: BorderLayout.SOUTH) {
-                        scrollPane(constraints: BorderLayout.CENTER) {
-                            textArea(id: 'omoTextArea', lineWrap: true, wrapStyleWord: true, columns: 25, rows: 5, editable: false)
-                        }
+                    scrollPane(constraints: BorderLayout.CENTER) {
+                        textArea(id: 'omoTextArea', lineWrap: true, wrapStyleWord: true, columns: 28, rows: 6, editable: false)
                     }
 
                 }

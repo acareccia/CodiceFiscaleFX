@@ -288,14 +288,14 @@ public class CodiceFiscaleChecker {
         return secondaParteCF;
     }
 
-    private static String getTerzaParteCodiceFiscale(Date dataNascita, Character sesso) {
+    private static String getTerzaParteCodiceFiscale(Date dataNascita, String sesso) {
     	Calendar calendar = Calendar.getInstance();
         calendar.setTime(dataNascita);   	
     	int giorno = calendar.get(Calendar.DAY_OF_MONTH);
         int mese = calendar.get(Calendar.MONTH);
         int anno = calendar.get(Calendar.YEAR);
         char meseDecod = DECODE_MESE[mese];
-        if(sesso.equals('F') || sesso.equals('f'))
+        if(sesso.equals("F") || sesso.equals("f"))
             giorno += 40;
         StringBuffer terzaParte = new StringBuffer();
         terzaParte.append(Integer.toString(anno).substring(2)).
@@ -311,7 +311,7 @@ public class CodiceFiscaleChecker {
 		String cognome = persona.getCognome().trim().toUpperCase();
         String nome = persona.getNome().trim().toUpperCase();
         Date dataNascita = persona.getDataNascita();
-        Character sesso = persona.getSesso();       
+        String sesso = persona.getSesso();
         String cdFiscale = persona.getLocalita().getCodiceFiscale().trim().toUpperCase();
         
         String firstPartCF = getPrimaParteCodiceFiscale(cognome);

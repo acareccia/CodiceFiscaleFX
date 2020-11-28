@@ -21,7 +21,7 @@ public class CodiceFiscaleCheckerTest {
         Persona persona = new Persona();
         persona.setCognome("TEST");
         persona.setNome("TEST");
-        persona.setSesso('M');
+        persona.setSesso("M");
         persona.setDataNascita(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1990"));
         persona.setLocalita(comune);
 

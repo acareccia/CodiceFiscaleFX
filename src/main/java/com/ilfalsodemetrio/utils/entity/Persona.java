@@ -13,7 +13,7 @@ public class Persona implements Serializable {
 	private Integer id;
 	private String nome;
 	private String cognome;
-	private Character sesso;
+	private String sesso;
 	private Date dataNascita;
 	private String dataNascitaString;
 	private String codiceFiscale;
@@ -21,5 +21,17 @@ public class Persona implements Serializable {
 
 	public String getDataNascitaString() {
 		return new SimpleDateFormat("dd/MM/yyyy").format(dataNascita);
+	}
+
+	@Override
+	public String toString() {
+		return "Persona{" +
+				"nome='" + nome + '\'' +
+				", cognome='" + cognome + '\'' +
+				", sesso=" + sesso +
+				", dataNascitaString='" + dataNascitaString + '\'' +
+				", codiceFiscale='" + codiceFiscale + '\'' +
+				", localita=" + localita +
+				'}';
 	}
 }
