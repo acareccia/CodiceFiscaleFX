@@ -59,19 +59,14 @@ class AppGroovy {
                         }
 
                     }
-//                    panel(constraints: BorderLayout.SOUTH) {
-//
-//                    }
-
                 }
 
                 panel(constraints: BorderLayout.CENTER,
-                        border: compoundBorder([emptyBorder(5), titledBorder('Codice Fiscale e omocodi possibili')])) {
+                        border: compoundBorder([emptyBorder(5), titledBorder('Codice Fiscale')])) {
                     tableLayout {
                         tr {
                             td { label 'Codice Fiscale:' }
-                            td { textField id: 'codiceFiscaleField',
-                                    columns: 20, editable: false, text: persona.codiceFiscale }
+                            td { textField id: 'codiceFiscaleField', columns: 20, editable: false, text: persona.codiceFiscale }
                         }
                     }
                     scrollPane(constraints: BorderLayout.CENTER) {
