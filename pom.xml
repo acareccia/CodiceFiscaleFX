@@ -5,12 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.ilfalsodemetrio.utils</groupId>
-    <artifactId>fakeCode</artifactId>
+    <artifactId>CodiceFiscale</artifactId>
     <version>1.0.0</version>
 
     <properties>
         <encoding>UTF-8</encoding>
         <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+        <mainApp>com.ilfalsodemetrio.utils.ui.AppGroovy</mainApp>
+        <macosBundleJre>/Library/Java/JavaVirtualMachines/jdk1.8.0_212.jdk</macosBundleJre>
     </properties>
 
     <build>
@@ -32,18 +34,19 @@
                 <executions>
                     <execution>
                         <goals>
-                            <!--<goal>generateStubs</goal>-->
+                            <goal>generateStubs</goal>
                             <goal>compile</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.ilfalsodemetrio.utils.fakeCode.Main</mainClass>
+                            <mainClass>${mainApp}</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -66,8 +69,8 @@
                 <artifactId>appbundle-maven-plugin</artifactId>
                 <version>1.2.0</version>
                 <configuration>
-                    <mainClass>com.ilfalsodemetrio.utils.fakeCode.Main</mainClass>
-                    <jrePath>/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk</jrePath>
+                    <mainClass>${mainApp}</mainClass>
+                    <jrePath>${macosBundleJre}</jrePath>
                 </configuration>
                 <executions>
                     <execution>
@@ -90,7 +93,7 @@
 
     <dependency>
         <groupId>org.codehaus.groovy</groupId>
-        <artifactId>groovy</artifactId>
+        <artifactId>groovy-all</artifactId>
         <version>1.7.6</version>
     </dependency>
         <dependency>
