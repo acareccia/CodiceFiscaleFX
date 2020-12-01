@@ -1,5 +1,5 @@
 # Codice Fiscale
-Calcola il Codice Fiscale e tutti i suoi possibili omocodi
+Calcola il Codice Fiscale con gli omocodi
 
 # Features
 - [x] Executable Jar
