@@ -45,9 +45,10 @@
 
         <Label text="Localita Nascita : " GridPane.columnIndex="0" GridPane.rowIndex="5"/>
         <ComboBox fx:id="birhDateLocation"
+                  editable="true"
                   prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
 
-        <Button fx:id="submitButton" text="Submit"
+        <Button fx:id="submitButton" text="Genera"
                 prefWidth="100" prefHeight="40" defaultButton="true"
                 GridPane.columnIndex="0" GridPane.rowIndex="6"
                 GridPane.columnSpan="2" GridPane.rowSpan="1"
@@ -58,8 +59,6 @@
             </GridPane.margin>
         </Button>
     </GridPane>
-    <ListView fx:id="codesList"
-
-              disable="true"/>
+    <ListView fx:id="codesList"/>
 </VBox>
 

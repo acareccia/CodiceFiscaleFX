@@ -58,6 +58,8 @@ public class Controller implements Initializable {
         nameField.setTextFormatter(new TextFormatter<>(Controller::formatUpper));
         surnameField.setTextFormatter(new TextFormatter<>(Controller::formatUpper));
 
+        codesList.getItems().add("");
+
     }
 
 
@@ -84,11 +86,8 @@ public class Controller implements Initializable {
 
         codesList.getItems().clear();
         codesList.getItems().addAll(codes);
-        codesList.setDisable(false);
 
-        AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "Info","Codice Fiscale : "+ codes.get(0));
-
-
+        //AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "Info","Codice Fiscale : "+ codes.get(0));
 
     }
 }

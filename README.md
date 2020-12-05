@@ -1,17 +1,17 @@
 # Codice Fiscale
-Calcola il Codice Fiscale con gli omocodi
+Calcola il Codice Fiscale con gli omocodi (Tesbed for experiments)
 
-
-
-
-# Features
+## Features
 - [x] Executable Jar
 - [x] MacOS Application 
 - [x] Swing UI (Groovy SwingBuilder)
-- [ ] JavaFX UI
+- [x] JavaFX UI
 - [ ] Web UI
 - [ ] CLI (picocli?)
 - [ ] Open data integration
 
+JavaFX
+![screenshot](app_fx.png)
 
-![screenshot](app.png)
+GroovySwingBuilder
+![screenshot](app_groovy.png)

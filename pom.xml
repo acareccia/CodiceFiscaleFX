@@ -11,7 +11,7 @@
     <properties>
         <encoding>UTF-8</encoding>
         <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
-        <mainApp>com.ilfalsodemetrio.utils.ui.AppGroovy</mainApp>
+        <mainApp>com.ilfalsodemetrio.utils.ui.AppFx</mainApp>
         <macosBundleJre>/Library/Java/JavaVirtualMachines/jdk1.8.0_212.jdk</macosBundleJre>
     </properties>
 
