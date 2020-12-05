@@ -46,7 +46,7 @@
             <DatePicker fx:id="birhDatePicker" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
 
             <Label text="Localita Nascita : " GridPane.columnIndex="0" GridPane.rowIndex="5" />
-            <ComboBox fx:id="localitaNascita" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+            <ComboBox fx:id="birhDateLocations" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
 
             <Button fx:id="submitButton" text="Submit"
                     prefWidth="100" prefHeight="40" defaultButton="true"
@@ -61,7 +61,7 @@
         </GridPane>
     </top>
     <center>
-        <VBox xmlns:fx="http://javafx.com/fxml" alignment="center">
+        <VBox fx:id="codePane" xmlns:fx="http://javafx.com/fxml" alignment="center">
 <!--            <Label text="Codici"/-->
             <ListView fx:id="codesList"/>
         </VBox>
