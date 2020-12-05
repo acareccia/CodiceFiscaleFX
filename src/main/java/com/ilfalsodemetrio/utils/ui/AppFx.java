@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Locale;
+
 public class AppFx extends Application {
 
     public static void main(String[] args) {
@@ -14,9 +16,11 @@ public class AppFx extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Locale.setDefault(Locale.ITALIAN);
+
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
         primaryStage.setTitle("Codice Fiscale");
-        primaryStage.setScene(new Scene(root, 400, 500));
+        primaryStage.setScene(new Scene(root, 400, 400));
         primaryStage.show();
     }
 }
