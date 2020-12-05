@@ -12,4 +12,11 @@ public class Localita implements Serializable {
 	private String codiceIstat;
 	private String descrizione;
 	private String codiceFiscale;
+
+	public Localita() {
+	}
+
+	public Localita(String codiceFiscale) {
+		this.codiceFiscale = codiceFiscale;
+	}
 }

@@ -1,29 +1,36 @@
 package com.ilfalsodemetrio.utils.ui.fx;
 
+import com.ilfalsodemetrio.utils.CodiceFiscaleChecker;
 import com.ilfalsodemetrio.utils.entity.Localita;
+import com.ilfalsodemetrio.utils.entity.Persona;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.stage.Window;
 
+import javax.swing.event.ChangeListener;
 import java.net.URL;
+import java.sql.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     @FXML
-    private TextField nameField;
-
-    @FXML
     public TextField surnameField;
 
     @FXML
-    private ComboBox<String> sexBox;
+    private TextField nameField;
+    @FXML
+    private ChoiceBox<String> sexBox;
 
     @FXML
-    private ComboBox<String> birhDateLocations;
+    private DatePicker birhDatePicker;
+
+    @FXML
+    private ComboBox<String> birhDateLocation;
 
     @FXML
     private Button submitButton;
@@ -31,36 +38,57 @@ public class Controller implements Initializable {
     @FXML
     private ListView<String> codesList;
 
-    @FXML
-    private VBox codePane;
+    private static TextFormatter.Change formatUpper(TextFormatter.Change change) {
+        change.setText(change.getText().toUpperCase());
+        return change;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("init");
 
         sexBox.setItems(FXCollections.observableArrayList(
-                "M",  "F"
-        ));
-        birhDateLocations.setItems(FXCollections.observableArrayList(
-                "MILANO", "ROMA","SVIZZERA"
+                "M", "F"
         ));
 
-        codesList.setItems(FXCollections.observableArrayList(""));
+        birhDateLocation.setItems(FXCollections.observableArrayList(
+                "F205", "ROMA", "SVIZZERA"
+        ));
+
+        nameField.setTextFormatter(new TextFormatter<>(Controller::formatUpper));
+        surnameField.setTextFormatter(new TextFormatter<>(Controller::formatUpper));
+
     }
+
 
     public void handleSubmitButtonAction(ActionEvent actionEvent) {
         Window owner = submitButton.getScene().getWindow();
-        if(nameField.getText().isEmpty()) {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", "Please enter your name");
+        if (nameField.getText().isEmpty() ||
+                surnameField.getText().isEmpty() ||
+                sexBox.getValue().isEmpty() ||
+                birhDatePicker.getValue() == null ||
+                birhDateLocation.getValue().isEmpty()) {
+            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", "Dati incompleti");
             return;
         }
 
-        //sample
-        codesList.setItems(FXCollections.observableArrayList("ABCD",  "EFGH"));
-        codesList.getItems().add(nameField.getText());
-        codesList.getItems().add(surnameField.getText());
+        //todo: binding?
+        Persona persona = new Persona();
+        persona.setNome(nameField.getText());
+        persona.setCognome(surnameField.getText());
+        persona.setSesso(sexBox.getValue());
+        persona.setDataNascita(Date.valueOf(birhDatePicker.getValue()));
+        persona.setLocalita(new Localita(birhDateLocation.getValue()));
 
-        //AlertHelper.showAlert(Alert.AlertType.CONFIRMATION, owner, "Info", nameField.getText());
+        List<String> codes = CodiceFiscaleChecker.getAllValidCodiciFiscali(persona);
+
+        codesList.getItems().clear();
+        codesList.getItems().addAll(codes);
+        codesList.setDisable(false);
+
+        AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "Info","Codice Fiscale : "+ codes.get(0));
+
+
 
     }
 }
