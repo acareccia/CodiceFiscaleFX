@@ -10,26 +10,24 @@ import java.util.Date;
 @Data
 @Bindable
 public class Persona implements Serializable {
-	private Integer id;
+	public enum Sesso {
+		M,
+		F
+	}
 	private String nome;
 	private String cognome;
 	private String sesso;
 	private Date dataNascita;
-	private String dataNascitaString;
 	private String codiceFiscale;
 	private Localita localita;
-
-	public String getDataNascitaString() {
-		return new SimpleDateFormat("dd/MM/yyyy").format(dataNascita);
-	}
 
 	@Override
 	public String toString() {
 		return "Persona{" +
 				"nome='" + nome + '\'' +
 				", cognome='" + cognome + '\'' +
-				", sesso=" + sesso +
-				", dataNascitaString='" + dataNascitaString + '\'' +
+				", sesso='" + sesso + '\'' +
+				", dataNascita='" + dataNascita + '\'' +
 				", codiceFiscale='" + codiceFiscale + '\'' +
 				", localita=" + localita +
 				'}';

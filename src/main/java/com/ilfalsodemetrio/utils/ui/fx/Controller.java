@@ -3,34 +3,34 @@ package com.ilfalsodemetrio.utils.ui.fx;
 import com.ilfalsodemetrio.utils.CodiceFiscaleChecker;
 import com.ilfalsodemetrio.utils.entity.Localita;
 import com.ilfalsodemetrio.utils.entity.Persona;
-import javafx.beans.value.ObservableValue;
+import com.ilfalsodemetrio.utils.loaders.LocalitaLoader;
+import com.ilfalsodemetrio.utils.loaders.PersonaLoader;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Window;
 
-import javax.swing.event.ChangeListener;
 import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     @FXML
-    public TextField surnameField;
-
-    @FXML
     private TextField nameField;
     @FXML
+    public TextField surnameField;
+    @FXML
     private ChoiceBox<String> sexBox;
-
     @FXML
     private DatePicker birhDatePicker;
-
     @FXML
-    private ComboBox<String> birhDateLocation;
+    private ComboBox<Localita> birhDateLocation;
 
     @FXML
     private Button submitButton;
@@ -45,21 +45,24 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("init");
-
-        sexBox.setItems(FXCollections.observableArrayList(
-                "M", "F"
-        ));
-
-        birhDateLocation.setItems(FXCollections.observableArrayList(
-                "F205", "ROMA", "SVIZZERA"
-        ));
-
+        // formatters
         nameField.setTextFormatter(new TextFormatter<>(Controller::formatUpper));
         surnameField.setTextFormatter(new TextFormatter<>(Controller::formatUpper));
 
-        codesList.getItems().add("");
+        // sex
+        sexBox.setItems(FXCollections.observableArrayList(
+                "M", "F"
+        ));
+        sexBox.getSelectionModel().selectFirst();
 
+        // birthLocations
+        ObservableList<Localita> list = FXCollections.observableList(LocalitaLoader.loader());
+
+        birhDateLocation.setItems(list);
+        birhDateLocation.getSelectionModel().selectFirst();
+
+        // list
+        codesList.getItems().add("");
     }
 
 
@@ -69,7 +72,7 @@ public class Controller implements Initializable {
                 surnameField.getText().isEmpty() ||
                 sexBox.getValue().isEmpty() ||
                 birhDatePicker.getValue() == null ||
-                birhDateLocation.getValue().isEmpty()) {
+                birhDateLocation.getValue() == null) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", "Dati incompleti");
             return;
         }
@@ -80,7 +83,7 @@ public class Controller implements Initializable {
         persona.setCognome(surnameField.getText());
         persona.setSesso(sexBox.getValue());
         persona.setDataNascita(Date.valueOf(birhDatePicker.getValue()));
-        persona.setLocalita(new Localita(birhDateLocation.getValue()));
+        persona.setLocalita(birhDateLocation.getValue());
 
         List<String> codes = CodiceFiscaleChecker.getAllValidCodiciFiscali(persona);
 
@@ -89,5 +92,31 @@ public class Controller implements Initializable {
 
         //AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "Info","Codice Fiscale : "+ codes.get(0));
 
+    }
+
+    public void handleRandomButtonAction(ActionEvent actionEvent) {
+        Persona persona = PersonaLoader.rand();
+        System.out.println(persona);
+
+        nameField.setText(persona.getNome());
+        surnameField.setText(persona.getCognome());
+        sexBox.setValue(persona.getSesso());
+        birhDatePicker.setValue(LocalDate.from(
+                persona.getDataNascita().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
+        birhDateLocation.setValue(persona.getLocalita());
+
+        List<String> codes = CodiceFiscaleChecker.getAllValidCodiciFiscali(persona);
+        codesList.getItems().clear();
+        codesList.getItems().addAll(codes);
+    }
+
+    public void handleResetButtonAction(ActionEvent actionEvent) {
+        nameField.setText(null);
+        surnameField.setText(null);
+        sexBox.getSelectionModel().selectFirst();;
+        birhDatePicker.setValue(null);
+        birhDateLocation.getSelectionModel().selectFirst();;
+
+        codesList.getItems().clear();
     }
 }

@@ -45,19 +45,31 @@
 
         <Label text="Localita Nascita : " GridPane.columnIndex="0" GridPane.rowIndex="5"/>
         <ComboBox fx:id="birhDateLocation"
-                  editable="true"
+
                   prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
 
-        <Button fx:id="submitButton" text="Genera"
-                prefWidth="100" prefHeight="40" defaultButton="true"
-                GridPane.columnIndex="0" GridPane.rowIndex="6"
-                GridPane.columnSpan="2" GridPane.rowSpan="1"
-                GridPane.halignment="CENTER"
-                onAction="#handleSubmitButtonAction">
+        <HBox GridPane.columnIndex="0" GridPane.rowIndex="6"
+              GridPane.columnSpan="2" GridPane.rowSpan="1" GridPane.fillWidth="100"
+              GridPane.halignment="CENTER">
             <GridPane.margin>
-                <Insets top="20" right="0" bottom="20" left="0"></Insets>
+                <Insets top="10" right="0" bottom="10" left="0"></Insets>
             </GridPane.margin>
-        </Button>
+
+            <Button fx:id="submitButton" text="Genera"
+                    prefWidth="100" prefHeight="40" defaultButton="true"
+                    onAction="#handleSubmitButtonAction">
+            </Button>
+            <Button fx:id="randomButton" text="Casuale"
+                    prefWidth="100" prefHeight="40" defaultButton="false"
+                    onAction="#handleRandomButtonAction">
+            </Button>
+
+            <Button fx:id="resetButton" text="Annulla"
+                    prefWidth="100" prefHeight="40" defaultButton="false"
+                    onAction="#handleResetButtonAction">
+            </Button>
+        </HBox>
+
     </GridPane>
     <ListView fx:id="codesList"/>
 </VBox>
