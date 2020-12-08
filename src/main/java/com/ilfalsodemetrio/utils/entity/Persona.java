@@ -1,14 +1,11 @@
 package com.ilfalsodemetrio.utils.entity;
 
-import groovy.beans.Bindable;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Data
-@Bindable
 public class Persona implements Serializable {
 	public enum Sesso {
 		M,

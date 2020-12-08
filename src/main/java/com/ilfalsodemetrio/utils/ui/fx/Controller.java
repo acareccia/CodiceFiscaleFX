@@ -14,9 +14,10 @@ import javafx.scene.control.*;
 import javafx.stage.Window;
 
 import java.net.URL;
-import java.sql.Date;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -82,7 +83,7 @@ public class Controller implements Initializable {
         persona.setNome(nameField.getText());
         persona.setCognome(surnameField.getText());
         persona.setSesso(sexBox.getValue());
-        persona.setDataNascita(Date.valueOf(birhDatePicker.getValue()));
+        persona.setDataNascita(Date.from(Instant.from(birhDatePicker.getValue())));
         persona.setLocalita(birhDateLocation.getValue());
 
         List<String> codes = CodiceFiscaleChecker.getAllValidCodiciFiscali(persona);

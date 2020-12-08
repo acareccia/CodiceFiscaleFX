@@ -1,4 +1,4 @@
-package com.ilfalsodemetrio.utils.ui;
+package com.ilfalsodemetrio.utils.ui.fx;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
