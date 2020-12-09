@@ -8,9 +8,11 @@ import com.ilfalsodemetrio.utils.loaders.PersonaLoader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.*;
 import javafx.stage.Window;
 import org.controlsfx.control.SearchableComboBox;
 
@@ -65,8 +67,28 @@ public class Controller implements Initializable {
 
         // list
         codesList.getItems().add("");
+        testCopy();
     }
 
+    private void testCopy() {
+        MenuItem item = new MenuItem("Copia");
+        item.setAccelerator( new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN));
+        item.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                StringBuilder clipboardString = new StringBuilder();
+                clipboardString.append(codesList.getSelectionModel().getSelectedItem());
+                final ClipboardContent content = new ClipboardContent();
+                content.putString(clipboardString.toString());
+                Clipboard.getSystemClipboard().setContent(content);
+                System.out.println("text: "+content.toString());
+
+            }
+        });
+        ContextMenu menu = new ContextMenu();
+        menu.getItems().add(item);
+        codesList.setContextMenu(menu);
+    }
 
     public void handleSubmitButtonAction(ActionEvent actionEvent) {
         Window owner = submitButton.getScene().getWindow();
@@ -84,13 +106,19 @@ public class Controller implements Initializable {
         persona.setNome(nameField.getText());
         persona.setCognome(surnameField.getText());
         persona.setSesso(sexBox.getValue());
-        persona.setDataNascita(Date.from(Instant.from(birhDatePicker.getValue())));
+
+        LocalDate localDate = birhDatePicker.getValue();
+        Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+        persona.setDataNascita(Date.from(instant));
+
         persona.setLocalita(birhDateLocation.getValue());
 
         List<String> codes = CodiceFiscaleChecker.getAllValidCodiciFiscali(persona);
 
         codesList.getItems().clear();
         codesList.getItems().addAll(codes);
+        codesList.getSelectionModel().selectFirst();;
+        codesList.requestFocus();
 
         //AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "Info","Codice Fiscale : "+ codes.get(0));
 
@@ -98,18 +126,14 @@ public class Controller implements Initializable {
 
     public void handleRandomButtonAction(ActionEvent actionEvent) {
         Persona persona = PersonaLoader.rand();
-        System.out.println(persona);
-
-        nameField.setText(persona.getNome());
-        surnameField.setText(persona.getCognome());
-        sexBox.setValue(persona.getSesso());
-        birhDatePicker.setValue(LocalDate.from(
-                persona.getDataNascita().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
-        birhDateLocation.setValue(persona.getLocalita());
+        bindToUI(persona);
 
         List<String> codes = CodiceFiscaleChecker.getAllValidCodiciFiscali(persona);
         codesList.getItems().clear();
         codesList.getItems().addAll(codes);
+        codesList.getSelectionModel().selectFirst();
+        codesList.requestFocus();
+
     }
 
     public void handleResetButtonAction(ActionEvent actionEvent) {
@@ -121,4 +145,15 @@ public class Controller implements Initializable {
 
         codesList.getItems().clear();
     }
+
+    private void bindToUI(Persona persona) {
+        System.out.println(persona);
+        nameField.setText(persona.getNome());
+        surnameField.setText(persona.getCognome());
+        sexBox.setValue(persona.getSesso());
+        birhDatePicker.setValue(LocalDate.from(
+                persona.getDataNascita().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
+        birhDateLocation.setValue(persona.getLocalita());
+    }
+
 }
