@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import org.controlsfx.control.SearchableComboBox?>
 <VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.ilfalsodemetrio.utils.ui.fx.Controller">
     <padding>
         <Insets top="10" right="10" bottom="10" left="10"/>
@@ -44,8 +45,7 @@
         <DatePicker fx:id="birhDatePicker" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
 
         <Label text="Localita Nascita : " GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-        <ComboBox fx:id="birhDateLocation"
-
+        <SearchableComboBox fx:id="birhDateLocation"
                   prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
 
         <HBox GridPane.columnIndex="0" GridPane.rowIndex="6"

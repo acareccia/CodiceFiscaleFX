@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Window;
+import org.controlsfx.control.SearchableComboBox;
 
 import java.net.URL;
 import java.time.Instant;
@@ -31,7 +32,7 @@ public class Controller implements Initializable {
     @FXML
     private DatePicker birhDatePicker;
     @FXML
-    private ComboBox<Localita> birhDateLocation;
+    private SearchableComboBox<Localita> birhDateLocation;
 
     @FXML
     private Button submitButton;
