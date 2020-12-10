@@ -11,7 +11,7 @@ Calcola il Codice Fiscale con gli omocodi (Tesbed for experiments)
 - [ ] Open data integration
 
 JavaFX
-![screenshot](app_fx.png)
+![screenshot](img/app_fx.png)
 
 GroovySwingBuilder
-![screenshot](app_groovy.png)
+![screenshot](img/app_groovy.png)
