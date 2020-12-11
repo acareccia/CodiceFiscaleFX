@@ -1,5 +1,5 @@
 plugins {
-    id 'java'
+    //id 'java'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.9'
     id 'org.beryx.jlink' version '2.21.1'
@@ -9,8 +9,23 @@ plugins {
 group = "com.ilfalsodemetrio"
 version = "2.0.0"
 
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://nexus.gluonhq.com/nexus/content/repositories/releases/'
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
 dependencies {
-    implementation("org.controlsfx:controlsfx:11.0.3")
+
+    implementation('org.controlsfx:controlsfx:11.0.3') {
+        exclude group: 'org.openjfx'
+    }
 
     compileOnly 'org.projectlombok:lombok:1.18.16'
     annotationProcessor 'org.projectlombok:lombok:1.18.16'
@@ -21,52 +36,44 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
 }
 
-repositories {
-    mavenCentral()
-    maven {
-        url 'https://nexus.gluonhq.com/nexus/content/repositories/releases/'
-    }
-}
-
 javafx {
-    version = '15'
+    version = "15.0.1"
     modules = ['javafx.controls', 'javafx.fxml']
 }
 
-
 application {
     mainClass = "com.ilfalsodemetrio.utils.ui.fx.AppFx"
-    mainModule = "com.ilfalsodemetrio.CodiceFiscale"
+    mainModule = "com.ilfalsodemetrio.utils.CodiceFiscale"
 }
 
-
+logger.info('========================')
 ext.os = org.gradle.internal.os.OperatingSystem.current()
-
-jlink {
-    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
-    launcher {
-        name = 'Codice Fiscale'
-    }
-    jpackage {
-        if(Boolean.getBoolean('download.jpackage')) {
-            jpackageHome = downloadJPackage()
-        }
-
-        if(os.macOsX) {
-            jvmArgs = ["-Duser.dir=/tmp"]
-            installerOptions = [
-//                '--mac-sign',
-//                '--mac-signing-key-user-name', System.getenv('SIGNING_KEY_USER_NAME'),
-//                '--mac-signing-keychain', System.getenv('SIGNING_KEYCHAIN_PATH')
-            ]
-        } else if(os.windows) {
-            installerOptions = ['--win-per-user-install', '--win-dir-chooser', '--win-menu']
+//
+//jlink {
+//    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+//    launcher {
+//        name = 'CodiceFiscale'
+//    }
+//    jpackage {
+//        if(Boolean.getBoolean('download.jpackage')) {
+//            jpackageHome = downloadJPackage()
+//        }
+//
+//        if(os.macOsX) {
+//            jvmArgs = ["-Duser.dir=/tmp"]
+//            installerOptions = [
+////                '--mac-sign',
+////                '--mac-signing-key-user-name', System.getenv('SIGNING_KEY_USER_NAME'),
+////                '--mac-signing-keychain', System.getenv('SIGNING_KEYCHAIN_PATH')
+//            ]
+//        } else if(os.windows) {
+//            installerOptions = ['--win-per-user-install', '--win-dir-chooser', '--win-menu']
 //        } else {
 //            installerType = 'deb' // 'rpm'
-        }
-        installerOptions += '--verbose'
-    }
-}
+//        }
+//        installerOptions += '--verbose'
+//    }
+//}
 
 
 // #### The code below is needed only if you use the downloadJPackage() method to install the jpackage tool ####
@@ -83,11 +90,11 @@ String[] getJPackageCoordinates() {
             'zip',
             'jdk-14'
     ]
-    return [
-            'https://download.java.net/java/GA/jdk14/076bab302c7b4508975440c56f6cc26a/36/GPL/openjdk-14_linux-x64_bin.tar.gz',
-            'tar.gz',
-            'jdk-14'
-    ]
+//    return [
+//            'https://download.java.net/java/GA/jdk14/076bab302c7b4508975440c56f6cc26a/36/GPL/openjdk-14_linux-x64_bin.tar.gz',
+//            'tar.gz',
+//            'jdk-14'
+//    ]
 }
 
 String downloadJPackage() {
