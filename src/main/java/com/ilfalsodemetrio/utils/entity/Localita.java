@@ -1,22 +1,30 @@
 package com.ilfalsodemetrio.utils.entity;
 
-import groovy.beans.Bindable;
 import lombok.Data;
 
 import java.io.Serializable;
 
-@Bindable
 @Data
 public class Localita implements Serializable {
-	private Integer id;
-	private String codiceIstat;
 	private String descrizione;
+	private String provincia;
 	private String codiceFiscale;
 
-	public Localita() {
+	public Localita() { }
+
+	public Localita(String codiceFiscale, String descrizione, String provincia) {
+		this.codiceFiscale = codiceFiscale;
+		this.descrizione = descrizione;
+		this.provincia = provincia;
 	}
 
-	public Localita(String codiceFiscale) {
-		this.codiceFiscale = codiceFiscale;
+	@Override
+	public String toString() {
+		return new StringBuilder()
+				.append(descrizione.toUpperCase())
+				.append(" (")
+				.append(provincia.toUpperCase())
+				.append(")")
+				.toString();
 	}
 }
