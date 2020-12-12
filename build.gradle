@@ -47,7 +47,6 @@ application {
     mainModule = "com.ilfalsodemetrio.utils.CodiceFiscale"
 }
 
-logger.info('========================')
 ext.os = org.gradle.internal.os.OperatingSystem.current()
 
 jlink {
@@ -67,8 +66,10 @@ jlink {
 //                '--mac-signing-key-user-name', System.getenv('SIGNING_KEY_USER_NAME'),
 //                '--mac-signing-keychain', System.getenv('SIGNING_KEYCHAIN_PATH')
             ]
+            installerType = 'dmg'
         } else if(os.windows) {
             installerOptions = ['--win-per-user-install', '--win-dir-chooser', '--win-menu']
+            installerType = 'exe'
         } else {
             installerType = 'deb' // 'rpm'
         }
@@ -91,11 +92,11 @@ String[] getJPackageCoordinates() {
             'zip',
             'jdk-14'
     ]
-//    return [
-//            'https://download.java.net/java/GA/jdk14/076bab302c7b4508975440c56f6cc26a/36/GPL/openjdk-14_linux-x64_bin.tar.gz',
-//            'tar.gz',
-//            'jdk-14'
-//    ]
+    return [
+            'https://download.java.net/java/GA/jdk14/076bab302c7b4508975440c56f6cc26a/36/GPL/openjdk-14_linux-x64_bin.tar.gz',
+            'tar.gz',
+            'jdk-14'
+    ]
 }
 
 String downloadJPackage() {
